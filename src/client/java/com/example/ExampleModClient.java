@@ -1,4 +1,4 @@
-package com.example;
+package org.wdfeer;
 
 import net.fabricmc.api.ClientModInitializer;
 

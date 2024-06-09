@@ -1,31 +1,30 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "meteorites",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Simple Meteorites",
+	"description": "Fireballs fall from the sky",
 	"authors": [
-		"Me!"
+		"wdfeer"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/wdfeer/simple-meteorites"
 	},
-	"license": "CC0-1.0",
-	"icon": "assets/modid/icon.png",
+	"license": "GPL-v3.0",
+	"icon": "assets/meteorites/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"org.wdfeer.meteorites.Mod"
 		],
 		"client": [
-			"com.example.ExampleModClient"
+			"org.wdfeer.meteorites.ModClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"meteorites.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "meteorites.client.mixins.json",
 			"environment": "client"
 		}
 	],
