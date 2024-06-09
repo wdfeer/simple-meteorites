@@ -1,6 +1,7 @@
 package org.wdfeer.meteorites;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,5 +15,7 @@ public class Mod implements ModInitializer {
     @Override
     public void onInitialize() {
         ServerTickEvents.END_WORLD_TICK.register(Meteorites::OnWorldTickEnd);
+
+        CommandRegistrationCallback.EVENT.register(Commands::RegisterCommands);
     }
 }
