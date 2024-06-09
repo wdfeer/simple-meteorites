@@ -17,9 +17,7 @@
 		"main": [
 			"org.wdfeer.meteorites.Mod"
 		],
-		"client": [
-			"org.wdfeer.meteorites.ModClient"
-		]
+		"client": []
 	},
 	"mixins": [
 		"meteorites.mixins.json",
