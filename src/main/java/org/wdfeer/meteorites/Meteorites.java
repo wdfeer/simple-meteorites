@@ -12,30 +12,25 @@ import net.minecraft.util.math.random.Random;
 import java.util.Arrays;
 
 public class Meteorites {
-    private static long last = 0;
-    public static long interval = 1000;
+    public static State state;
 
     public static void OnWorldTickEnd(ServerWorld serverWorld) {
         long time = serverWorld.getTime();
-        long diff = time - last;
-        if (diff > interval) {
-            last = time;
+        long diff = time - state.last;
+        if (diff > state.interval) {
+            state.last = time;
             SummonMeteorite(serverWorld);
         }
     }
 
 
-    public static byte minPower = 1;
-    public static byte maxPower = 15;
-
     private static byte GetPower(Random random) {
-        return (byte) (random.nextBetween(minPower, maxPower));
+        return (byte) (random.nextBetween(state.minPower, state.maxPower));
     }
 
-    public static int maxDistance = 160;
 
     private static Vec3d GetOffset(Random random) {
-        return new Vec3d(random.nextBetween(-maxDistance, maxDistance), 100, random.nextBetween(-maxDistance, maxDistance));
+        return new Vec3d(random.nextBetween(-state.maxDistance, state.maxDistance), 100, random.nextBetween(-state.maxDistance, state.maxDistance));
     }
 
     private static void SummonMeteorite(ServerWorld serverWorld) {
