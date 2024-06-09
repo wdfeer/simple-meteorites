@@ -29,7 +29,7 @@ public class Meteorites {
     public static byte maxPower = 15;
 
     private static byte GetPower(Random random) {
-        return (byte) (random.nextBetween(1, 15));
+        return (byte) (random.nextBetween(minPower, maxPower));
     }
 
     public static int maxDistance = 160;
