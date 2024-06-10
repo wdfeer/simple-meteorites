@@ -34,7 +34,7 @@ public class State extends PersistentState {
         state.minPower = tag.getByte("meteoriteMinPower");
         state.maxPower = tag.getByte("meteoriteMaxPower");
         state.maxDistance = tag.getInt("meteoriteMaxSpawnDistance");
-        state.maxDistance = tag.getInt("meteoriteSpawnAltitude");
+        state.altitude = tag.getInt("meteoriteSpawnAltitude");
 
         return state;
     }
