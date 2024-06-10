@@ -29,8 +29,8 @@ public class Meteorites {
     }
 
 
-    private static Vec3d GetOffset(Random random) {
-        return new Vec3d(random.nextBetween(-state.maxDistance, state.maxDistance), state.altitude, random.nextBetween(-state.maxDistance, state.maxDistance));
+    private static Vec3d GetOffset(Vec3d playerPos, Random random) {
+        return new Vec3d(random.nextBetween(-state.maxDistance, state.maxDistance), state.altitude - playerPos.y, random.nextBetween(-state.maxDistance, state.maxDistance));
     }
 
     private static void SummonMeteorite(ServerWorld serverWorld) {
@@ -39,7 +39,7 @@ public class Meteorites {
 
         var fireball = new FireballEntity(EntityType.FIREBALL, serverWorld);
         fireball.powerY = -0.1;
-        fireball.setPosition(player.getPos().add(GetOffset(serverWorld.random)));
+        fireball.setPosition(player.getPos().add(GetOffset(player.getPos(), serverWorld.random)));
 
         NbtCompound nbt = new NbtCompound();
         nbt.putByte("ExplosionPower", GetPower(serverWorld.random));
