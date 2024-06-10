@@ -30,7 +30,7 @@ public class Meteorites {
 
 
     private static Vec3d GetOffset(Random random) {
-        return new Vec3d(random.nextBetween(-state.maxDistance, state.maxDistance), 100, random.nextBetween(-state.maxDistance, state.maxDistance));
+        return new Vec3d(random.nextBetween(-state.maxDistance, state.maxDistance), state.altitude, random.nextBetween(-state.maxDistance, state.maxDistance));
     }
 
     private static void SummonMeteorite(ServerWorld serverWorld) {

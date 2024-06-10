@@ -13,6 +13,7 @@ public class State extends PersistentState {
     public byte minPower = 1;
     public byte maxPower = 15;
     public int maxDistance = 160;
+    public int altitude = 300;
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
@@ -21,6 +22,7 @@ public class State extends PersistentState {
         nbt.putByte("meteoriteMinPower", minPower);
         nbt.putByte("meteoriteMaxPower", maxPower);
         nbt.putInt("meteoriteMaxSpawnDistance", maxDistance);
+        nbt.putInt("meteoriteSpawnAltitude", altitude);
         return nbt;
     }
 
@@ -32,6 +34,7 @@ public class State extends PersistentState {
         state.minPower = tag.getByte("meteoriteMinPower");
         state.maxPower = tag.getByte("meteoriteMaxPower");
         state.maxDistance = tag.getInt("meteoriteMaxSpawnDistance");
+        state.maxDistance = tag.getInt("meteoriteSpawnAltitude");
 
         return state;
     }

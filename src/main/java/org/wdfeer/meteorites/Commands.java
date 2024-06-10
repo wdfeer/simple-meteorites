@@ -50,6 +50,14 @@ public class Commands {
                                     Meteorites.state.markDirty();
                                     return 1;
                                 })))
+                .then(literal("altitude")
+                        .then(argument("height", IntegerArgumentType.integer())
+                                .executes(context -> {
+                                    Meteorites.state.altitude = IntegerArgumentType.getInteger(context, "height");
+                                    context.getSource().sendFeedback(() -> Text.literal("Set spawn altitude to " + Meteorites.state.altitude), true);
+                                    Meteorites.state.markDirty();
+                                    return 1;
+                                })))
         );
     }
 }
