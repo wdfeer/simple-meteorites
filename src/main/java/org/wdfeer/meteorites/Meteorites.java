@@ -35,6 +35,8 @@ public class Meteorites {
 
 
     private static byte GetPower(Random random) {
+        if (state.minPower > state.maxPower)
+            return state.minPower;
         return (byte) (random.nextBetween(state.minPower, state.maxPower));
     }
 
