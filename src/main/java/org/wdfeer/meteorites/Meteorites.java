@@ -3,6 +3,7 @@ package org.wdfeer.meteorites;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
@@ -12,7 +13,18 @@ import net.minecraft.world.dimension.DimensionType;
 public class Meteorites {
     public static State state;
 
-    public static void OnWorldTickEnd(ServerWorld serverWorld) {
+    public static void OnServerTickEnd(MinecraftServer server) {
+        server.getWorlds().forEach(Meteorites::OnWorldTick);
+    }
+
+    private static boolean CanSpawnInDimension(DimensionType dimension) {
+        return !dimension.hasCeiling();
+    }
+
+    public static void OnWorldTick(ServerWorld serverWorld) {
+        if (!CanSpawnInDimension(serverWorld.getDimension())) return;
+        if (serverWorld.getPlayers().isEmpty()) return;
+
         long time = serverWorld.getTime();
         long diff = time - state.last;
         if (diff > state.interval) {
@@ -31,15 +43,10 @@ public class Meteorites {
         return new Vec3d(random.nextBetween(-state.maxDistance, state.maxDistance), state.altitude - playerPos.y, random.nextBetween(-state.maxDistance, state.maxDistance));
     }
 
-    private static boolean CanSpawnInDimension(DimensionType dimension) {
-        return !dimension.hasCeiling();
-    }
 
     private static void SummonMeteorite(ServerWorld serverWorld) {
         ServerPlayerEntity player = serverWorld.getRandomAlivePlayer();
         if (player == null) return;
-
-        if (!CanSpawnInDimension(serverWorld.getDimension())) return;
 
         var fireball = new FireballEntity(EntityType.FIREBALL, serverWorld);
         fireball.powerY = -0.1;

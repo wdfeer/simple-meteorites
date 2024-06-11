@@ -14,7 +14,7 @@ public class Mod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        ServerTickEvents.END_WORLD_TICK.register(Meteorites::OnWorldTickEnd);
+        ServerTickEvents.END_SERVER_TICK.register(Meteorites::OnServerTickEnd);
 
         CommandRegistrationCallback.EVENT.register(Commands::RegisterCommands);
 
