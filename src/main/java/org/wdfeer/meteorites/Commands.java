@@ -17,7 +17,7 @@ public class Commands {
         dispatcher.register(literal("meteorites")
                 .requires(source -> source.hasPermissionLevel(2))
                 .then(literal("interval")
-                        .then(argument("ticks", IntegerArgumentType.integer())
+                        .then(argument("ticks", IntegerArgumentType.integer(0))
                                 .executes(context -> {
                                     Meteorites.state.interval = IntegerArgumentType.getInteger(context, "ticks");
                                     context.getSource().sendFeedback(() -> Text.literal("Set meteorite interval to " + Meteorites.state.interval + " ticks"), true);
@@ -26,26 +26,30 @@ public class Commands {
                                 }))
                 )
                 .then(literal("min_power")
-                        .then(argument("value", IntegerArgumentType.integer())
+                        .then(argument("value", IntegerArgumentType.integer(0, 255))
                                 .executes(context -> {
-                                    Meteorites.state.minPower = (byte) IntegerArgumentType.getInteger(context, "value");
+                                    int value = IntegerArgumentType.getInteger(context, "value");
+
+                                    Meteorites.state.minPower = (byte) value;
                                     context.getSource().sendFeedback(() -> Text.literal("Set min meteorite power to " + Meteorites.state.minPower), true);
                                     Meteorites.state.markDirty();
                                     return 1;
                                 }))
                 )
                 .then(literal("max_power")
-                        .then(argument("value", IntegerArgumentType.integer())
+                        .then(argument("value", IntegerArgumentType.integer(0, 255))
                                 .executes(context -> {
-                                    Meteorites.state.maxPower = (byte) IntegerArgumentType.getInteger(context, "value");
+                                    int value = IntegerArgumentType.getInteger(context, "value");
+
+                                    Meteorites.state.maxPower = (byte) value;
                                     context.getSource().sendFeedback(() -> Text.literal("Set max meteorite power to " + Meteorites.state.maxPower), true);
                                     Meteorites.state.markDirty();
                                     return 1;
                                 })))
                 .then(literal("distance")
-                        .then(argument("value", IntegerArgumentType.integer())
+                        .then(argument("value", IntegerArgumentType.integer(0))
                                 .executes(context -> {
-                                    Meteorites.state.maxDistance = (byte) IntegerArgumentType.getInteger(context, "value");
+                                    Meteorites.state.maxDistance = IntegerArgumentType.getInteger(context, "value");
                                     context.getSource().sendFeedback(() -> Text.literal("Set max spawn distance to " + Meteorites.state.maxDistance), true);
                                     Meteorites.state.markDirty();
                                     return 1;
