@@ -8,6 +8,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.dimension.DimensionType;
 
 import java.util.Arrays;
 
@@ -33,9 +34,15 @@ public class Meteorites {
         return new Vec3d(random.nextBetween(-state.maxDistance, state.maxDistance), state.altitude - playerPos.y, random.nextBetween(-state.maxDistance, state.maxDistance));
     }
 
+    private static boolean CanSpawnInDimension(DimensionType dimension) {
+        return !dimension.hasCeiling();
+    }
+
     private static void SummonMeteorite(ServerWorld serverWorld) {
         ServerPlayerEntity player = serverWorld.getRandomAlivePlayer();
         if (player == null) return;
+
+        if (!CanSpawnInDimension(serverWorld.getDimension())) return;
 
         var fireball = new FireballEntity(EntityType.FIREBALL, serverWorld);
         fireball.powerY = -0.1;
