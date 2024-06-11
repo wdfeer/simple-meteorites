@@ -1,6 +1,5 @@
 package org.wdfeer.meteorites;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -9,8 +8,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.dimension.DimensionType;
-
-import java.util.Arrays;
 
 public class Meteorites {
     public static State state;
@@ -52,6 +49,6 @@ public class Meteorites {
         nbt.putByte("ExplosionPower", GetPower(serverWorld.random));
         fireball.readCustomDataFromNbt(nbt);
 
-        serverWorld.addEntities(Arrays.stream(new Entity[]{fireball}));
+        serverWorld.spawnEntity(fireball);
     }
 }
