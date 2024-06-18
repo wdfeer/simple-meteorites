@@ -16,15 +16,12 @@
   "entrypoints": {
     "main": [
       "org.wdfeer.meteorites.Mod"
-    ],
-    "client": []
+    ]
   },
-  "mixins": [],
   "depends": {
     "fabricloader": ">=0.15.11",
     "minecraft": "~1.19.4",
     "java": ">=17",
     "fabric-api": "*"
-  },
-  "suggests": {}
+  }
 }
