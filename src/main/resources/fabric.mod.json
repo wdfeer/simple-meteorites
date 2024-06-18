@@ -12,7 +12,7 @@
   },
   "license": "GPL-3.0",
   "icon": "assets/meteorites/icon.png",
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "org.wdfeer.meteorites.Mod"
