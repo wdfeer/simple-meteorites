@@ -1,7 +1,6 @@
 package org.wdfeer.meteorites;
 
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.PersistentState;
 import net.minecraft.world.PersistentStateManager;
@@ -16,7 +15,7 @@ public class State extends PersistentState {
     public int altitude = 300;
 
     @Override
-    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+    public NbtCompound writeNbt(NbtCompound nbt) {
         nbt.putLong("lastMeteoriteTime", last);
         nbt.putLong("meteoriteSpawnInterval", interval);
         nbt.putByte("meteoriteMinPower", minPower);
@@ -26,7 +25,7 @@ public class State extends PersistentState {
         return nbt;
     }
 
-    public static State createFromNbt(NbtCompound tag, RegistryWrapper.WrapperLookup registryLookup) {
+    public static State createFromNbt(NbtCompound tag) {
         State state = new State();
 
         state.last = tag.getLong("lastMeteoriteTime");
@@ -39,19 +38,15 @@ public class State extends PersistentState {
         return state;
     }
 
-    private static final Type<State> type = new Type<>(
-            State::new,
-            State::createFromNbt,
-            null
-    );
-
     public static State getServerState(MinecraftServer server) {
         PersistentStateManager persistentStateManager = server.getWorld(World.OVERWORLD).getPersistentStateManager();
 
-        State state = persistentStateManager.getOrCreate(type, Mod.MOD_ID);
+        State state = persistentStateManager.getOrCreate(State::createFromNbt, State::new, "meteorites_state");
 
         state.markDirty();
 
         return state;
     }
+
+
 }
