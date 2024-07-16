@@ -51,7 +51,8 @@ public class Meteorites {
         if (player == null) return;
 
         var fireball = new FireballEntity(EntityType.FIREBALL, serverWorld);
-        fireball.powerY = -0.1;
+        fireball.setVelocity(0, -1, 0);
+        fireball.accelerationPower = 0.1;
         fireball.setPosition(player.getPos().add(GetOffset(player.getPos(), serverWorld.random)));
 
         NbtCompound nbt = new NbtCompound();
